@@ -1,0 +1,14 @@
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\bin\Debug\netcoreapp2.2\WebApplicationTest.deps.json
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\bin\Debug\netcoreapp2.2\WebApplicationTest.runtimeconfig.json
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\bin\Debug\netcoreapp2.2\WebApplicationTest.runtimeconfig.dev.json
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\bin\Debug\netcoreapp2.2\WebApplicationTest.dll
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\bin\Debug\netcoreapp2.2\WebApplicationTest.pdb
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.csprojAssemblyReference.cache
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.csproj.CoreCompileInputs.cache
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.RazorAssemblyInfo.cache
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.RazorAssemblyInfo.cs
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.AssemblyInfoInputs.cache
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.AssemblyInfo.cs
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.RazorTargetAssemblyInfo.cache
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.dll
+C:\Users\sasharma\source\repos\WebApplicationTest\WebApplicationTest\obj\Debug\netcoreapp2.2\WebApplicationTest.pdb
