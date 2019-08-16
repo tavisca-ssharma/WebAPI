@@ -36,13 +36,9 @@ pipeline {
     }
  stages {
     stage('Build') {
-	steps {
-		echo '$RELEASE_ENVIRONMENT'
-	}
-      when {
-              expression { $RELEASE_ENVIRONMENT == 'Build' }                
-        }
+		
       steps {
+	echo '$RELEASE_ENVIRONMENT'
         powershell'''
             echo '=======================Restore Project Start======================='
             dotnet$NETCORE_VERSION restore $SOLUTION_FILE --source https://api.nuget.org/v3/index.json
