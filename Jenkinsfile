@@ -10,7 +10,7 @@ pipeline {
             
          string (
             name : 'SOLUTIION_FILE',
-            defaultValue: 'develop',
+            defaultValue: 'WebApplicationTest.sln',
             description: ''    
         )
         string (
@@ -20,7 +20,7 @@ pipeline {
         )
         string (
             name : 'TEST_PROJECT_PATH',
-            defaultValue: '',
+            defaultValue: 'TestCase/TestCase.csproj',
             description: ''    
         )
     string (
