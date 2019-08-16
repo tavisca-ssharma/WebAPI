@@ -1,7 +1,4 @@
 pipeline {
-  environment {
-    RELEASE_ENVIRONMENT = "$params.RELEASE_ENVIRONMENT"
-  }
 
   agent { label 'master'
   }
@@ -38,7 +35,7 @@ pipeline {
     stage('Build') {
 		
       steps {
-	      echo '${RELEASE_ENVIRONMENT}'
+	      echo '${params.RELEASE_ENVIRONMENT}'
         powershell'''
             echo '=======================Restore Project Start======================='
             dotnet$NETCORE_VERSION restore $SOLUTION_FILE --source https://api.nuget.org/v3/index.json
@@ -51,7 +48,7 @@ pipeline {
     }
     stage('Test') {
        when {
-              expression { $RELEASE_ENVIRONMENT == 'Test' }
+              expression {params.RELEASE_ENVIRONMENT == 'Test' }
        }
         steps {    
             powershell'''
