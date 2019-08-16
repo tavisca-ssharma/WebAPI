@@ -51,6 +51,7 @@ pipeline {
       }
     }
     stage('Test') {
+      echo '$RELEASE_ENVIRONMENT'
        when {
               expression { $RELEASE_ENVIRONMENT == 'Test' }
        }
