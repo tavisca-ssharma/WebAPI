@@ -30,8 +30,7 @@ pipeline {
         )
         choice(
         name: 'RELEASE_ENVIRONMENT',
-        choices: "Build\nTest",
-        choices: "Build\nTest\nPublish",
+        choices: "Build\nTest\nPublish\nRun",
         description: '' 
         ) 
     }
