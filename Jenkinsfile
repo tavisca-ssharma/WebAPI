@@ -50,9 +50,6 @@ pipeline {
       }
     }
     stage('Test') {
-       when {
-              expression {params.RELEASE_ENVIRONMENT == 'Test' }
-       }
         steps {    
             powershell'''
               dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
@@ -61,9 +58,6 @@ pipeline {
         }
     }
     stage('Publish') {
-       when {
-              expression {params.RELEASE_ENVIRONMENT == 'Publish' }
-       }
         steps {    
             powershell'''
               dotnet${NETCORE_VERSION} publish ${PROJECT_PATH}
@@ -72,9 +66,6 @@ pipeline {
         }
     }
     stage('Run') {
-       when {
-              expression {params.RELEASE_ENVIRONMENT == 'Run' }
-       }
         steps {    
             powershell'''
               dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
