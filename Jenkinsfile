@@ -58,6 +58,8 @@ pipeline {
             powershell'''
               dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
             '''
+          zip zipFile: 'artifacts.zip', archive: true, dir: 'archive'
+          archiveArtifacts artifacts: 'artifacts.zip', fingerprint: true
         }
     }
   }
