@@ -36,6 +36,9 @@ pipeline {
     }
  stages {
     stage('Build') {
+	steps {
+		echo '$RELEASE_ENVIRONMENT'
+	}
       when {
               expression { $RELEASE_ENVIRONMENT == 'Build' }                
         }
@@ -51,7 +54,6 @@ pipeline {
       }
     }
     stage('Test') {
-      echo '$RELEASE_ENVIRONMENT'
        when {
               expression { $RELEASE_ENVIRONMENT == 'Test' }
        }
