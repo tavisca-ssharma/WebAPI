@@ -24,10 +24,15 @@ pipeline {
             name : 'TEST_PROJECT_PATH',
             defaultValue: '',
             description: ''    
-        ) 
+        )
+    string (
+            name : 'PROJECT_PATH',
+            defaultValue: 'WebApplicationTest/WebApplicationTest.csproj',
+            description: ''
+        )
         choice(
         name: 'RELEASE_ENVIRONMENT',
-        choices: "Build\nTest",
+        choices: "Build\nTest\nPublish",
         description: '' 
         ) 
     }
@@ -54,6 +59,17 @@ pipeline {
         steps {    
             powershell'''
               dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
+            '''
+          
+        }
+    }
+    stage('Publish') {
+       when {
+              expression {params.RELEASE_ENVIRONMENT == 'Publish' }
+       }
+        steps {    
+            powershell'''
+              dotnet${NETCORE_VERSION} publish ${PROJECT_PATH}
             '''
           script {
               zip zipFile: 'artifacts.zip', archive: true, dir: 'WebApplicationTest/bin/Debug/netcoreapp2.2'
