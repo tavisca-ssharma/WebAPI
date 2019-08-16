@@ -37,7 +37,7 @@ pipeline {
  stages {
     stage('Build') {	
        when {
-              expression {params.RELEASE_ENVIRONMENT == 'Build' }
+              expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
        }
       steps {
         powershell''' echo \'=======================Restore Project Start=======================\'
