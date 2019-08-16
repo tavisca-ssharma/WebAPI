@@ -1,7 +1,6 @@
 pipeline {
   agent { label 'master'
   }
-
   parameters {
         string (
             name : 'GIT_SSH_PATH',
@@ -21,18 +20,27 @@ pipeline {
         )
         string (
             name : 'TEST_PROJECT_PATH',
-            defaultValue: 'WebApplicationTest/WebApplicationTest.csproj',
+            defaultValue: '',
             description: ''    
         ) 
+        )
+    string (
+            name : 'PROJECT_PATH',
+            defaultValue: 'WebApplicationTest/WebApplicationTest.csproj',
+            description: ''
+        )
         choice(
         name: 'RELEASE_ENVIRONMENT',
         choices: "Build\nTest",
+        choices: "Build\nTest\nPublish",
         description: '' 
         ) 
     }
  stages {
-    stage('Build') {
-		
+    stage('Build') {	
+       when {
+              expression {params.RELEASE_ENVIRONMENT == 'Build' }
+       }
       steps {
         powershell'''
             echo '=======================Restore Project Start======================='
@@ -46,25 +54,35 @@ pipeline {
     }
     stage('Test') {
        when {
-              expression { params.RELEASE_ENVIRONMENT == 'Test' }
+              expression {params.RELEASE_ENVIRONMENT == 'Test' }
        }
         steps {    
             powershell'''
-              dotnet{$NETCORE_VERSION} test ${TEST_PROJECT_PATH}
+              dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
             '''
-          script {
-              zip zipFile: 'artifacts.zip', archive: false, dir: 'WebApplicationTest/bin/Debug/netcoreapp2.2'
-              archiveArtifacts artifacts: 'artifacts.zip', fingerprint: true
-          }
+
         }
     }
-   stage('Run') {
-     steps {
-	powershell'''
-	   dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
-	'''
-     }
-   }
+    stage('Publish') {
+       when {
+              expression {params.RELEASE_ENVIRONMENT == 'Publish' }
+       }
+        steps {    
+            powershell'''
+              dotnet${NETCORE_VERSION} publish ${PROJECT_PATH}
+            '''
+          
+        }
+    }
+    stage('Run') {
+       when {
+              expression {params.RELEASE_ENVIRONMENT == 'Run' }
+       }
+        steps {    
+            powershell'''
+              dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
+            '''
+        }
+    }
   }
 }
-
