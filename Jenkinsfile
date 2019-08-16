@@ -56,7 +56,7 @@ pipeline {
               dotnet$NETCORE_VERSION test $TEST_PROJECT_PATH
             '''
           script {
-              zip zipFile: 'artifacts.zip', archive: false, dir: 'WebApplicationTest/bin/Debug/netcoreapp2.2'
+              zip zipFile: 'artifacts.zip', archive: true, dir: 'WebApplicationTest/bin/Debug/netcoreapp2.2'
               archiveArtifacts artifacts: 'artifacts.zip', fingerprint: true
           }
         }
