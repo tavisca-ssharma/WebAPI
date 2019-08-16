@@ -58,7 +58,7 @@ pipeline {
             powershell'''
               dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
             '''
-          zip zipFile: 'artifacts.zip', archive: true, dir: 'archive'
+          zip zipFile: 'artifacts.zip', archive: true, dir: 'WebApplicationTest\bin\Debug\netcoreapp2.2\publish'
           archiveArtifacts artifacts: 'artifacts.zip', fingerprint: true
         }
     }
