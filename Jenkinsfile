@@ -1,8 +1,4 @@
 pipeline {
-  environment {
-    RELEASE_ENVIRONMENT = "$params.RELEASE_ENVIRONMENT"
-  }
-
   agent { label 'master'
   }
 
@@ -25,7 +21,7 @@ pipeline {
         )
         string (
             name : 'TEST_PROJECT_PATH',
-            defaultValue: '',
+            defaultValue: 'WebApplicationTest/WebApplicationTest.csproj',
             description: ''    
         ) 
         choice(
@@ -38,24 +34,23 @@ pipeline {
     stage('Build') {
 		
       steps {
-	echo '$RELEASE_ENVIRONMENT'
         powershell'''
             echo '=======================Restore Project Start======================='
-            dotnet$NETCORE_VERSION restore $SOLUTION_FILE --source https://api.nuget.org/v3/index.json
+            dotnet${NETCORE_VERSION} restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo '=====================Restore Project Completed===================='
             echo '=======================Build Project Start======================='
-            dotnet$NETCORE_VERSION build $SOLUTION_FILE -p:Configuration=release -v:q
+            dotnet${NETCORE_VERSION} build ${SOLUTION_FILE} -p:Configuration=release -v:q
             echo '=====================Build Project Completed===================='
         '''
       }
     }
     stage('Test') {
        when {
-              expression { $RELEASE_ENVIRONMENT == 'Test' }
+              expression { params.RELEASE_ENVIRONMENT == 'Test' }
        }
         steps {    
             powershell'''
-              dotnet$NETCORE_VERSION test $TEST_PROJECT_PATH
+              dotnet{$NETCORE_VERSION} test ${TEST_PROJECT_PATH}
             '''
           script {
               zip zipFile: 'artifacts.zip', archive: false, dir: 'WebApplicationTest/bin/Debug/netcoreapp2.2'
