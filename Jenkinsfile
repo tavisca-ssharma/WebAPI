@@ -63,7 +63,7 @@ pipeline {
           }
         }
     }
-   post {
+   stage('Run') {
      steps {
 	powershell'''
 	   dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
@@ -72,4 +72,4 @@ pipeline {
    }
   }
 }
-}
+
