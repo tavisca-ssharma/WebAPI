@@ -66,7 +66,7 @@ pipeline {
    post {
      steps {
 	powershell'''
-	   dotnet run --project C:\Program Files (x86)\Jenkins\workspace\Testing_Jenkins
+	   dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
 	'''
      }
    }
