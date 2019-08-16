@@ -41,10 +41,10 @@ pipeline {
        }
       steps {
         powershell''' echo \'=======================Restore Project Start=======================\'
-            dotnet${NETCORE_VERSION} restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
+            dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
             echo \'=======================Build Project Start=======================\'
-            dotnet${NETCORE_VERSION} build ${SOLUTION_FILE} -p:Configuration=release -v:q
+            dotnet build ${SOLUTION_FILE} -p:Configuration=release -v:q
             echo \'=====================Build Project Completed====================\'
 '''
       }
@@ -52,7 +52,7 @@ pipeline {
     stage('Test') {
         steps {    
             powershell'''
-              dotnet${NETCORE_VERSION} test ${TEST_PROJECT_PATH}
+              dotnet test ${TEST_PROJECT_PATH}
             '''
 
         }
@@ -60,7 +60,7 @@ pipeline {
     stage('Publish') {
         steps {    
             powershell'''
-              dotnet${NETCORE_VERSION} publish ${PROJECT_PATH}
+              dotnet publish ${PROJECT_PATH}
             '''
           
         }
