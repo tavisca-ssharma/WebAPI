@@ -40,7 +40,7 @@ pipeline {
               expression {params.RELEASE_ENVIRONMENT == 'Build' }
        }
       steps {
-        powershell label: '', script: '''echo \'=======================Restore Project Start=======================\'
+        powershell''' label: '', script: '''echo \'=======================Restore Project Start=======================\'
             dotnet${NETCORE_VERSION} restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
             echo \'=======================Build Project Start=======================\'
