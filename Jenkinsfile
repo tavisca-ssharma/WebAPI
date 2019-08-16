@@ -37,7 +37,7 @@ pipeline {
  stages {
     stage('Build') {
       when {
-              expression { $env:RELEASE_ENVIRONMENT == 'Build' }                
+              expression { $RELEASE_ENVIRONMENT == 'Build' }                
         }
       steps {
         powershell'''
