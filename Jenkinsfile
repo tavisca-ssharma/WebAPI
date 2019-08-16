@@ -22,7 +22,6 @@ pipeline {
             name : 'TEST_PROJECT_PATH',
             defaultValue: '',
             description: ''    
-        ) 
         )
     string (
             name : 'PROJECT_PATH',
