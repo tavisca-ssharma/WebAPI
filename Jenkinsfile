@@ -4,7 +4,7 @@ pipeline {
   parameters {
         string (
             name : 'GIT_SSH_PATH',
-            defaultValue: '',
+            defaultValue: 'https://github.com/tavisca-ssharma/WebAPI.git',
             description: ''
         )            
             
