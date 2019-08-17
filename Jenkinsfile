@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "https://hub.docker.com/r/sharmashantanu07/first-docker"
+    registry = "sharmashantanu07/first-docker"
     registryCredential = 'dockerhub'
     dockerImage = ''
 }
@@ -40,16 +40,17 @@ pipeline {
         ) 
     }
  stages {
-    
     stage('DockerBuild') {
-        script {    
-	   dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
+	steps{
+           script {
+              dockerImage = docker.build registry + ":$BUILD_NUMBER"
+           }
+        }      
     }
     stage('DockerHub') {
 	steps{
            script {
-              docker.withRegistry( '', registryCredential ) {
+              docker.withRegistry( 'https://hub.docker.com', registryCredential ) {
               dockerImage.push()
           }
         }
