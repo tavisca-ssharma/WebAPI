@@ -53,8 +53,8 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		  docker build ${REGISTRY}
-		  echo \'=======================Image Build=======================\'
+		  docker build --tag=images .
+		  echo \'======================={images.id}=======================\'
            '''
         }      
     }
