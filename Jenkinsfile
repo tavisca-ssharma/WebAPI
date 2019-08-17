@@ -43,16 +43,16 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		   dockerImage = docker.build registry
+		   env.dockerImage = docker.build env.registry
            '''
         }      
     }
     stage('DockerHub') {
 	steps{
            powershell '''
-              docker.withRegistry( 'https://registry.hub.docker.com', 'registryCredential' ) {
+              docker.withRegistry( 'https://registry.hub.docker.com', env.registryCredential ) {
 	      echo 'Helllllllllllllllloooooooooooo'
-              dockerImage.push()
+              env.dockerImage.push()
               }
            '''
       }
