@@ -53,7 +53,7 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		  docker build --tag=imagetry .
+		  ${IMAGE} = docker build --tag=imagetry ${REGISTRY}
            '''
         }      
     }
