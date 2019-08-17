@@ -1,4 +1,9 @@
 pipeline {
+  environment {
+    registry = "sharmashantanu07/first-docker"
+    registryCredential = ‘dockerhub’
+    dockerImage = ''
+}
   agent { label 'master'
   }
   parameters {
@@ -68,16 +73,19 @@ pipeline {
     }
     stage('DockerBuild') {
         steps {    
-            app = docker.build("webapi_image")
+            script {
+               dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
         }
     }
     stage('DockerHub') {
-	steps {
-	    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-	    }
-	}
+	steps{
+           script {
+              docker.withRegistry( '', registryCredential ) {
+              dockerImage.push()
+          }
+        }
+      }
     }
   }
 }
