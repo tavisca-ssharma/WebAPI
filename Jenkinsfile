@@ -1,7 +1,7 @@
 pipeline {
   environment {
     registry = "sharmashantanu07/first-docker"
-    registryCredential = ‘dockerhub’
+    registryCredential = 'dockerhub'
     dockerImage = ''
 }
   agent { label 'master'
@@ -40,7 +40,6 @@ pipeline {
         ) 
     }
  stages {
-    def app
     stage('Build') {	
        when {
               expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
