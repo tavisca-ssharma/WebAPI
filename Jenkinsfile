@@ -42,11 +42,11 @@ pipeline {
  stages {
     stage('DockerBuild') {
 	steps{
-           script {
+           powershell '''
 		   println "Newly generated image, "
 		   dockerImage = docker.build("${registry}")
 		   println "Newly generated image, " + dockerImage.id
-           }
+           '''
         }      
     }
     stage('DockerHub') {
