@@ -43,7 +43,8 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            script {
-              dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		   dockerImage = docker.build("${registry}")
+		   println "Newly generated image, " + dockerImage.id
            }
         }      
     }
