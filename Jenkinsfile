@@ -53,7 +53,7 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		  docker build ${REGISTRY}
+		  docker build 
            '''
         }      
     }
