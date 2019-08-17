@@ -3,15 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-nanoserver-1803 AS build
-WORKDIR /src
-COPY ["WebApplicationTest/WebApplicationTest.csproj", "WebApplicationTest/"]
-RUN dotnet restore "WebApplicationTest/WebApplicationTest.csproj"
-COPY . .
-WORKDIR "/src/WebApplication"
-RUN dotnet build "WebApplicationTest.csproj" -c Release -o /app
-
-FROM build AS publish
+FROM base AS publish
 RUN dotnet publish "WebApplicationTest.csproj" -c Release -o /app
 
 FROM base AS final
