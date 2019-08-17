@@ -30,7 +30,7 @@ pipeline {
         )
         choice(
         name: 'RELEASE_ENVIRONMENT',
-        choices: "Build\nTest\nPublish\nRun",
+        choices: "Build\nTest\nPublish\nDockerBuild\nDockerHub",
         description: '' 
         ) 
     }
@@ -40,13 +40,14 @@ pipeline {
               expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
        }
       steps {
-        powershell''' echo \'=======================Restore Project Start=======================\'
+        powershell''' 
+	    echo \'=======================Restore Project Start=======================\'
             dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
             echo \'=======================Build Project Start=======================\'
             dotnet build ${SOLUTION_FILE} -p:Configuration=release -v:q
             echo \'=====================Build Project Completed====================\'
-'''
+	'''
       }
     }
     stage('Test') {
@@ -62,15 +63,19 @@ pipeline {
             powershell'''
               dotnet publish ${PROJECT_PATH}
             '''
-          
         }
     }
-    stage('Run') {
+    stage('DockerBuild') {
         steps {    
-            powershell'''
-              dotnet run --project C:/Program Files (x86)/Jenkins/workspace/Testing_Jenkins
-            '''
+            app = docker.build("webapi_image")
         }
+    }
+    stage('DockerHub') {
+	steps {
+	    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+	}
     }
   }
 }
