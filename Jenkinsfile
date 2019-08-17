@@ -25,7 +25,7 @@ pipeline {
         )
     string (
             name : 'REGISTRY',
-            defaultValue: 'sharmashantanu07/first-docker',
+            defaultValue: 'https://registry.hub.docker.com/sharmashantanu07/first-docker',
             description: ''
         )
     string (
