@@ -53,7 +53,7 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		  ${IMAGE} = docker build --tag=imagetry ${REGISTRY}
+		  ${IMAGE} = docker.build ${REGISTRY}
            '''
         }      
     }
@@ -61,7 +61,6 @@ pipeline {
 	steps{
            powershell '''
               docker.withRegistry( 'https://registry.hub.docker.com', ${REGISTRY_CREDENTIALS} ) {
-	      echo 'Helllllllllllllllloooooooooooo'
               ${IMAGE}.push()
               }
            '''
