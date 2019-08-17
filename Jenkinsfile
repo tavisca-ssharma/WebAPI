@@ -61,7 +61,7 @@ pipeline {
 	steps{
            powershell '''
 	      docker login path
-              docker push path/images:f44176f0d9bd
+              docker push images:f44176f0d9bd
            '''
       }
     }
