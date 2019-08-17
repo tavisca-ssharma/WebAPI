@@ -54,15 +54,14 @@ pipeline {
 	steps{
            powershell '''
 		  docker build --tag=images .
-		  echo \'=======================${images.id}=======================\'
            '''
         }      
     }
     stage('DockerHub') {
 	steps{
            powershell '''
-	      docker tag images https://registry.hub.docker.com/sharmashantanu07/first-docker
-              docker push https://registry.hub.docker.com/sharmashantanu07/first-docker
+	      docker login https://hub.docker.com
+              docker push https://hub.docker.com/sharmashantanu07/first-docker
            '''
       }
     }
