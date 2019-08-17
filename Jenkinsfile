@@ -60,7 +60,7 @@ pipeline {
     stage('DockerHub') {
 	steps{
            powershell '''
-	      docker login -u sharmashantanu07 -p shantanu96
+	      docker login -u sharmashantanu07 -p-stdin shantanu96
               docker push https://hub.docker.com/sharmashantanu07/first-docker
            '''
       }
