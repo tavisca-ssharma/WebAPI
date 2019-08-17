@@ -35,6 +35,7 @@ pipeline {
         ) 
     }
  stages {
+    def app
     stage('Build') {	
        when {
               expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
