@@ -43,7 +43,7 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		   dockerImage = docker.build("${registry}")
+		   dockerImage = docker.build registry
            '''
         }      
     }
