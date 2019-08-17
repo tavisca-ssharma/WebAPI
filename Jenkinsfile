@@ -35,7 +35,7 @@ pipeline {
         )
         choice(
         name: 'RELEASE_ENVIRONMENT',
-        choices: "Build\nTest\nPublish\nDockerBuild\nDockerHub",
+        choices: "DockerBuild\nDockerHub",
         description: '' 
         ) 
     }
