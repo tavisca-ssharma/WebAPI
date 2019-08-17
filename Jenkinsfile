@@ -53,8 +53,8 @@ pipeline {
            powershell '''
               docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
               dockerImage.push()
-          '''
-        }
+              }
+           '''
       }
     }
   }
