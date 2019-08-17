@@ -1,9 +1,4 @@
 pipeline {
-  environment {
-    registry = "sharmashantanu07/first-docker"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-}
   agent { label 'master'
   }
   parameters {
@@ -29,8 +24,23 @@ pipeline {
             description: ''    
         )
     string (
-            name : 'PROJECT_PATH',
-            defaultValue: 'WebApplicationTest/WebApplicationTest.csproj',
+            name : 'REGISTRY',
+            defaultValue: 'sharmashantanu07/first-docker',
+            description: ''
+        )
+    string (
+            name : 'REGISTRY_CREDENTIALS',
+            defaultValue: 'dockerhub',
+            description: ''
+        )
+    string (
+            name : 'IMAGE',
+            defaultValue: '',
+            description: ''
+        )
+    string (
+            name : 'GIT_SSH_PATH',
+            defaultValue: 'https://github.com/tavisca-ssharma/WebAPI.git',
             description: ''
         )
         choice(
@@ -43,16 +53,16 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		   env.dockerImage = docker.build env.registry
+		  ${IMAGE} = docker.build ${REGISTRY}
            '''
         }      
     }
     stage('DockerHub') {
 	steps{
            powershell '''
-              docker.withRegistry( 'https://registry.hub.docker.com', env.registryCredential ) {
+              docker.withRegistry( 'https://registry.hub.docker.com', ${REGISTRY_CREDENTIALS} ) {
 	      echo 'Helllllllllllllllloooooooooooo'
-              env.dockerImage.push()
+              ${IMAGE}.push()
               }
            '''
       }
