@@ -43,18 +43,17 @@ pipeline {
     stage('DockerBuild') {
 	steps{
            powershell '''
-		   println "Newly generated image, "
 		   dockerImage = docker.build("${registry}")
-		   println "Newly generated image, " + dockerImage.id
+		   echo "Newly generated image, " + dockerImage.id
            '''
         }      
     }
     stage('DockerHub') {
 	steps{
-           script {
-              docker.withRegistry( 'https://hub.docker.com', registryCredential ) {
+           powershell '''
+              docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
               dockerImage.push()
-          }
+          '''
         }
       }
     }
