@@ -50,6 +50,35 @@ pipeline {
         ) 
     }
  stages {
+     stage('Build') {	
+       when {
+              expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
+       }
+      steps {
+        powershell''' 
+	    echo \'=======================Restore Project Start=======================\'
+            dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
+            echo \'=====================Restore Project Completed====================\'
+            echo \'=======================Build Project Start=======================\'
+            dotnet build ${SOLUTION_FILE} -p:Configuration=release -v:q
+            echo \'=====================Build Project Completed====================\'
+	'''
+      }
+    }
+    stage('Test') {
+        steps {    
+            powershell'''
+              dotnet test ${TEST_PROJECT_PATH}
+            '''
+        }
+    }
+    stage('Publish') {
+        steps {    
+            powershell'''
+              dotnet publish ${PROJECT_PATH}
+            '''
+        }
+    }
     stage('DockerBuild') {
 	steps{
            powershell '''
@@ -60,7 +89,7 @@ pipeline {
     stage('DockerHub') {
 	steps{
            powershell '''
-	      docker tag f44176f0d9bd sharmashantanu07/first-docker:firsttry
+	      docker tag f44176f0d9bd sharmashantanu07/first-docker:images
               docker login --username=sharmashantanu07 --password=shantanu96
 	      docker push sharmashantanu07/first-docker
            '''
