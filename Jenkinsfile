@@ -79,11 +79,11 @@ pipeline {
 	          echo \'=====================Docker Image Build Started====================\'
 		  docker build --tag=images .
 		  echo \'=====================Docker Image Build Completed====================\'
-		  echo \'=====================Docker Image Pushing to DockerHub Started====================\'
+		  echo \'=====================Docker Image Pushing on DockerHub Started====================\'
 		  docker tag images sharmashantanu07/first-docker:try
               	  docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
 	          docker push sharmashantanu07/first-docker
-		  echo \'=====================Docker Image Pushing to DockerHub Completed====================\'
+		  echo \'=====================Docker Image Pushing on DockerHub Completed====================\'
            '''
         }      
     }
