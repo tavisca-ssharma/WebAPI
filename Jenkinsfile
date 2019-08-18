@@ -55,15 +55,12 @@ pipeline {
         )
         choice(
         name: 'RELEASE_ENVIRONMENT',
-        choices: "DockerBuild\nDockerHub",
+        choices: "Build\nTest\nPublish\nDockerBuild\nDockerHub",
         description: '' 
         ) 
     }
  stages {
      stage('Build') {	
-       when {
-              expression {params.RELEASE_ENVIRONMENT == 'Build' || params.RELEASE_ENVIRONMENT=='Run'}
-       }
       steps {
         powershell''' 
 	    echo \'=======================Restore Project Start=======================\'
