@@ -34,6 +34,16 @@ pipeline {
             description: ''
         )
     string (
+            name : 'DOCKERHUB_USERNAME',
+            defaultValue: 'sharmashantanu07',
+            description: ''
+        )
+    string (
+            name : 'DOCKERHUB_PASSWORD',
+            defaultValue: 'shantanu96',
+            description: ''
+        )
+    string (
             name : 'IMAGE',
             defaultValue: '',
             description: ''
@@ -90,7 +100,7 @@ pipeline {
 	steps{
            powershell '''
 	      docker tag f44176f0d9bd sharmashantanu07/first-docker:images
-              docker login --username=sharmashantanu07 --password=shantanu96
+              docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
 	      docker push sharmashantanu07/first-docker
            '''
       }
