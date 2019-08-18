@@ -80,9 +80,9 @@ pipeline {
 		  docker build --tag=images .
 		  echo \'=====================Docker Image Build Completed====================\'
 		  echo \'=====================Docker Image Pushing to DockerHub Started====================\'
-		  docker tag images ${REGISTRY}:try
+		  docker tag images sharmashantanu07/first-docker:try
               	  docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
-	          docker push ${REGISTRY}
+	          docker push sharmashantanu07/first-docker
 		  echo \'=====================Docker Image Pushing to DockerHub Completed====================\'
            '''
         }      
