@@ -25,7 +25,7 @@ pipeline {
         )
     string (
             name : 'REGISTRY',
-            defaultValue: 'https://registry.hub.docker.com/sharmashantanu07/first-docker',
+            defaultValue: 'sharmashantanu07/first-docker',
             description: ''
         )
     string (
@@ -44,11 +44,6 @@ pipeline {
             description: ''
         )
     string (
-            name : 'IMAGE',
-            defaultValue: '',
-            description: ''
-        )
-    string (
             name : 'GIT_SSH_PATH',
             defaultValue: 'https://github.com/tavisca-ssharma/WebAPI.git',
             description: ''
@@ -63,44 +58,34 @@ pipeline {
      stage('Build') {	
       steps {
         powershell''' 
-	    echo \'=======================Restore Project Start=======================\'
+	    echo \'=======================Restore Project Started=======================\'
             dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
-            echo \'=======================Build Project Start=======================\'
+            echo \'=======================Build Project Started=======================\'
             dotnet build ${SOLUTION_FILE} -p:Configuration=release -v:q
             echo \'=====================Build Project Completed====================\'
+	    echo \'=======================Test Project Started=======================\'
+            dotnet test ${TEST_PROJECT_PATH}
+            echo \'=====================Test Project Completed====================\'
+	    echo \'=======================Publish Project Started=======================\'
+            dotnet publish ${PROJECT_PATH}
+            echo \'=====================Publish Project Completed====================\'
 	'''
       }
     }
-    stage('Test') {
-        steps {    
-            powershell'''
-              dotnet test ${TEST_PROJECT_PATH}
-            '''
-        }
-    }
-    stage('Publish') {
-        steps {    
-            powershell'''
-              dotnet publish ${PROJECT_PATH}
-            '''
-        }
-    }
-    stage('DockerBuild') {
+    stage('Deploy') {
 	steps{
            powershell '''
+	          echo \'=====================Docker Image Build Started====================\'
 		  docker build --tag=images .
+		  echo \'=====================Docker Image Build Completed====================\'
+		  echo \'=====================Docker Image Pushing to DockerHub Started====================\'
+		  docker tag images ${REGISTRY}:try
+              	  docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
+	          docker push ${REGISTRY}
+		  echo \'=====================Docker Image Pushing to DockerHub Completed====================\'
            '''
         }      
-    }
-    stage('DockerHub') {
-	steps{
-           powershell '''
-	      docker tag f44176f0d9bd sharmashantanu07/first-docker:images
-              docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
-	      docker push sharmashantanu07/first-docker
-           '''
-      }
     }
   }
 }
