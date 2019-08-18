@@ -60,8 +60,9 @@ pipeline {
     stage('DockerHub') {
 	steps{
            powershell '''
-	      docker login path
-              docker push images:f44176f0d9bd
+	      docker tag f44176f0d9bd sharmashantanu07/first-docker:firsttry
+              docker login --username=sharmashantanu07 --password=shantanu96
+	      docker push sharmashantanu07/first-docker
            '''
       }
     }
