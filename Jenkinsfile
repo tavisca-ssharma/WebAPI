@@ -58,8 +58,7 @@ pipeline {
      stage('Build') {	
       steps {
         powershell''' 
-	    dotnet C:/Sonar/SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="4444a4428f4e462980e75e513a0587db0be53b38"
-	    echo \'=======================Restore Project Started=======================\'
+	   	    echo \'=======================Restore Project Started=======================\'
             dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
             echo \'=======================Build Project Started=======================\'
