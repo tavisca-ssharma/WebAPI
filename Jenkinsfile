@@ -90,7 +90,7 @@ pipeline {
   }
   post() {
     always {
-       bat ./performCleanup.bat
+       deleteDir()
     }
   }  		  
 }
