@@ -88,4 +88,9 @@ pipeline {
         }      
     }
   }
+  post() {
+    always {
+       bat ./performCleanup.bat
+    }
+  }  		  
 }
