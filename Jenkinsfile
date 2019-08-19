@@ -91,7 +91,7 @@ pipeline {
   post() {
     always {
        echo \'=====================Jenkins Workspace Cleaning Started====================\'
-       bat ./performCleanup.bat
+       deleteDir()
        echo \'=====================Jenkins Workspace Cleaning Completed====================\'
     }
   }  	
