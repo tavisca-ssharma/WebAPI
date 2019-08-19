@@ -88,4 +88,11 @@ pipeline {
         }      
     }
   }
+  post() {
+    always {
+       echo \'=====================Jenkins Workspace Cleaning Started====================\'
+       bat ./performCleanup.bat
+       echo \'=====================Jenkins Workspace Cleaning Completed====================\'
+    }
+  }  	
 }
