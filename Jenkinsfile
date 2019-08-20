@@ -58,9 +58,9 @@ pipeline {
      stage('Build') {	
       steps {
         powershell''' 
-	   	    echo \'=======================Restore Project Started=======================\'
-		    dotnet C:/Sonar/SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="4444a4428f4e462980e75e513a0587db0be53b38"
-
+	    echo \'=======================Sonar Project Started=======================\'
+	    dotnet C:/Sonar/SonarScanner.MSBuild.dll begin /k:"api" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="4444a4428f4e462980e75e513a0587db0be53b38"
+	    echo \'=======================Restore Project Started=======================\'
             dotnet restore ${SOLUTION_FILE} --source https://api.nuget.org/v3/index.json
             echo \'=====================Restore Project Completed====================\'
             echo \'=======================Build Project Started=======================\'
@@ -70,12 +70,8 @@ pipeline {
             dotnet test ${TEST_PROJECT_PATH}
             echo \'=====================Test Project Completed====================\'
 	    dotnet C:/Sonar/SonarScanner.MSBuild.dll end /d:sonar.login="4444a4428f4e462980e75e513a0587db0be53b38"
-
-
-
- 
-	 
-	 echo \'=======================Publish Project Started=======================\'
+	    echo \'=======================Sonar Project Completed=======================\'
+	    echo \'=======================Publish Project Started=======================\'
             dotnet publish ${PROJECT_PATH}
             echo \'=====================Publish Project Completed====================\'
 	'''
@@ -85,10 +81,10 @@ pipeline {
 	steps{
            powershell '''
 	          echo \'=====================Docker Image Build Started====================\'
-		  docker build --tag=images .
+		  docker build --tag=id .
 		  echo \'=====================Docker Image Build Completed====================\'
 		  echo \'=====================Docker Image Pushing to DockerHub Started====================\'
-		  docker tag images sharmashantanu07/first-docker:try1
+		  docker tag id sharmashantanu07/first-docker:web_api_image
               	  docker login --username=${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
 	          docker push sharmashantanu07/first-docker
 		  echo \'=====================Docker Image Pushing to DockerHub Completed====================\'
